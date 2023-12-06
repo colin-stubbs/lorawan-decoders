@@ -20,14 +20,18 @@ function decodeUplink(input) {
   if (!crc16Check(bytesString)) {
     decoded['valid'] = false;
     decoded['err'] = -1; // "crc check fail."
-    return { data: decoded };
+    return {
+      data: decoded
+    };
   }
 
   // Length Check
   if ((bytesString.length / 2 - 2) % 7 !== 0) {
     decoded['valid'] = false;
     decoded['err'] = -2; // "length check fail."
-    return { data: decoded };
+    return {
+      data: decoded
+    };
   }
 
   // Cache sensor id
@@ -158,16 +162,13 @@ function decodeUplink(input) {
           break;
         case 7:
           // battery power && interval
-          decoded.messages.push(
-            {
-              type: 'upload_battery',
-              battery: String(realDataValue.power),
-            },
-            {
-              type: 'upload_interval',
-              interval: String(parseInt(realDataValue.interval) * 60),
-            }
-          );
+          decoded.messages.push({
+            type: 'upload_battery',
+            battery: String(realDataValue.power),
+          }, {
+            type: 'upload_interval',
+            interval: String(parseInt(realDataValue.interval) * 60),
+          });
           break;
         case 0x120:
           // remove sensor
@@ -198,7 +199,9 @@ function decodeUplink(input) {
   }
 
   // return
-  return { data: decoded };
+  return {
+    data: decoded
+  };
 }
 
 function crc16Check(data) {
@@ -307,7 +310,7 @@ function ttnDataSpecialFormat(dataId, str) {
       // battery && interval
       return {
         interval: parseInt(str2.substr(0, 16), 2),
-        power: parseInt(str2.substr(-16, 16), 2),
+          power: parseInt(str2.substr(-16, 16), 2),
       };
   }
 }
@@ -359,8 +362,4 @@ function toBinary(arr) {
   return binaryData.toString().replace(/,/g, '');
 }
 
-// Samples
-// var sample = Decoder(["00", "00", "00", "01", "01", "00", "01", "00", "07", "00", "64", "00", "3C", "00", "01", "20", "01", "00", "00", "00", "00", "28", "90"], null);
-// var sample = Decoder(["01", "01", "10", "98", "53", "00", "00", "01", "02", "10", "A8", "7A", "00", "00", "AF", "51"], null);
-// var sample = Decoder(["01", "01", "00", "01", "01", "00", "01", "01", "02", "00", "6A", "01", "00", "15", "01", "03", "00", "30", "F1", "F7", "2C", "01", "04", "00", "09", "0C", "13", "14", "01", "05", "00", "7F", "4D", "00", "00", "01", "06", "00", "00", "00", "00", "00", "4C", "BE"], null);
-// console.log(sample);
+// EOF
