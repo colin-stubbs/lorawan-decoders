@@ -1,5 +1,47 @@
 // Netvox Rnnnxxx
 
+/*
+
+  payload: 011A012401000000000000
+  fport: 6
+
+  result,
+
+  {
+    "err": 0,
+    "measurements": {
+      "status": 1,
+      "volt": 3.6
+    },
+    "messages": [
+      {
+        "deviceManufacturer": "Netvox",
+        "deviceModel": "R718DA",
+        "type": "device_metadata"
+      },
+      {
+        "measurementDescription": "Voltage",
+        "measurementId": "1664",
+        "measurementResolution": "1",
+        "measurementUnit": "Volt",
+        "measurementValue": "3.6",
+        "type": "report_telemetry"
+      },
+      {
+        "measurementDescription": "Status",
+        "measurementId": "1536",
+        "measurementResolution": "1",
+        "measurementUnit": "Value",
+        "measurementValue": "1",
+        "type": "report_telemetry"
+      }
+    ],
+    "payload": "011A012401000000000000",
+    "valid": true
+  }
+
+*/
+
 function getCfgCmd(cfgcmd){
   var cfgcmdlist = {
     1:   "ConfigReportReq",
